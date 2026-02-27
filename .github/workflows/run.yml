@@ -10,12 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install depedencies
+      - name: Install dependencies
         run: |
           mkdir tmp
           wget https://github.com/ssut/payload-dumper-go/releases/download/1.2.0/payload-dumper-go_1.2.0_linux_amd64.tar.gz -P tmp/
           tar zxvf ./tmp/payload-dumper-go_1.2.0_linux_amd64.tar.gz -o payload-dumper-go
-          
+
       - name: Download ROM
         run: |
           wget -O ./tmp/ROM.zip -i url.txt
@@ -25,9 +25,9 @@ jobs:
           ./payload-dumper-go -p boot -o output ./tmp/ROM.zip
           rm -rf tmp/
           rm payload-dumper-go
-          
+
       - name: Upload to Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: boot.img
-          path: './output/boot.img'
+          path: ./output/boot.img
